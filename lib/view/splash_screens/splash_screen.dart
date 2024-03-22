@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../login_page/page/login_screen.dart';
+import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,16 +9,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SplashScreenController splashScreenController = SplashScreenController();
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ),
-      );
-    });
+    splashScreenController.checkLogin(context);
     super.initState();
   }
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/custom_textfield.dart';
-import 'package:restaurant_app_ipix/constants/global_variables.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/login_button.dart';
+import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../home_screen/home_screen.dart';
 
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final SplashScreenController splash = SplashScreenController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextfield(
-                  text: 'User name',
+                  text: 'Email',
                   controller: emailController,
                   validator: () {},
                   keyboardType: TextInputType.emailAddress,
@@ -68,15 +70,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 50),
                 LoginButton(
-                    title: 'Log in',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                      );
-                    }),
+                  title: 'Log in',
+                  onTap: () async {
+                    var pref = await SharedPreferences.getInstance();
+                    pref.setBool(splash.keyToLogin, true);
+                    pref.setString(splash.email, emailController.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
