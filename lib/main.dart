@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_ipix/view/splash_screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ,
+      home: const SplashScreen(),
     );
   }
 }
-
