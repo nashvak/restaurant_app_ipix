@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/global_variables.dart';
+import '../../../constants/global_variables.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String text;
@@ -8,13 +8,15 @@ class CustomTextfield extends StatelessWidget {
   final VoidCallback validator;
   final TextInputType keyboardType;
   final bool obscure;
+  final Icon? sufiixIcon;
   const CustomTextfield(
       {required this.text,
       super.key,
       required this.controller,
       required this.validator,
       this.obscure = false,
-      required this.keyboardType});
+      required this.keyboardType,
+      this.sufiixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomTextfield extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         decoration: InputDecoration(
+          suffixIcon: sufiixIcon,
           hintText: text,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
