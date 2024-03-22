@@ -15,14 +15,26 @@ class SplashScreenController extends ChangeNotifier {
       if (isLoggedIn != null) {
         if (isLoggedIn) {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
         } else {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
         }
       } else {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
       }
     });
   }

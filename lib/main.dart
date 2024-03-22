@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_ipix/view/splash_screens/splash_screen.dart';
+import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 
 void main() {
@@ -16,10 +17,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => SplashScreenController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LoginScreenController(),
         )
       ],
       child: MaterialApp(
         title: 'Restaraunt app',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

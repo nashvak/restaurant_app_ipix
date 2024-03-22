@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/custom_textfield.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/login_button.dart';
+import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,13 +45,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
-                CustomTextfield(
-                  text: 'Password',
-                  sufiixIcon: const Icon(Icons.visibility_off),
-                  obscure: true,
-                  controller: passwordController,
-                  validator: () {},
-                  keyboardType: TextInputType.visiblePassword,
+                Consumer<LoginScreenController>(
+                  builder: (context, loginController, child) {
+                    return CustomTextfield(
+                      text: 'Password',
+                      sufiixIcon: IconButton(
+                        icon: Icon(loginController.isVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          loginController.toggleVisibility();
+                        },
+                      ),
+                      obscure: loginController.isVisible,
+                      controller: passwordController,
+                      validator: () {},
+                      keyboardType: TextInputType.visiblePassword,
+                    );
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -8,7 +8,7 @@ class CustomTextfield extends StatelessWidget {
   final VoidCallback validator;
   final TextInputType keyboardType;
   final bool obscure;
-  final Icon? sufiixIcon;
+  final IconButton? sufiixIcon;
   const CustomTextfield(
       {required this.text,
       super.key,
