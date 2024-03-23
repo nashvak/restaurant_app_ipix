@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_ipix/view/splash_screens/splash_screen.dart';
+import 'package:restaurant_app_ipix/view_model/details_screen.dart';
 import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LoginScreenController(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DetailsScreenController(),
+        ),
       ],
       child: MaterialApp(
         title: 'Restaraunt app',
