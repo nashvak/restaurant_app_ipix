@@ -1,79 +1,169 @@
-class Usermodel {
-  List<Restaurant> restaurants;
+class ApiData {
+  List<Restaurants>? restaurants;
 
-  Usermodel({
-    required this.restaurants,
-  });
+  ApiData({this.restaurants});
+
+  ApiData.fromJson(Map<String, dynamic> json) {
+    if (json['restaurants'] != null) {
+      restaurants = <Restaurants>[];
+      json['restaurants'].forEach((v) {
+        restaurants!.add(Restaurants.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (restaurants != null) {
+      data['restaurants'] = restaurants!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class Restaurant {
-  int id;
-  String name;
-  Neighborhood neighborhood;
-  String photograph;
-  String address;
-  Latlng latlng;
-  String cuisineType;
-  OperatingHours operatingHours;
-  List<Review> reviews;
+class Restaurants {
+  int? id;
+  String? name;
+  String? neighborhood;
+  String? photograph;
+  String? address;
+  Latlng? latlng;
+  String? cuisineType;
+  OperatingHours? operatingHours;
+  List<Reviews>? reviews;
 
-  Restaurant({
-    required this.id,
-    required this.name,
-    required this.neighborhood,
-    required this.photograph,
-    required this.address,
-    required this.latlng,
-    required this.cuisineType,
-    required this.operatingHours,
-    required this.reviews,
-  });
+  Restaurants(
+      {this.id,
+      this.name,
+      this.neighborhood,
+      this.photograph,
+      this.address,
+      this.latlng,
+      this.cuisineType,
+      this.operatingHours,
+      this.reviews});
+
+  Restaurants.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    neighborhood = json['neighborhood'];
+    photograph = json['photograph'];
+    address = json['address'];
+    latlng = json['latlng'] != null ? Latlng.fromJson(json['latlng']) : null;
+    cuisineType = json['cuisine_type'];
+    operatingHours = json['operating_hours'] != null
+        ? OperatingHours.fromJson(json['operating_hours'])
+        : null;
+    if (json['reviews'] != null) {
+      reviews = <Reviews>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(Reviews.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['neighborhood'] = neighborhood;
+    data['photograph'] = photograph;
+    data['address'] = address;
+    if (latlng != null) {
+      data['latlng'] = latlng!.toJson();
+    }
+    data['cuisine_type'] = cuisineType;
+    if (operatingHours != null) {
+      data['operating_hours'] = operatingHours!.toJson();
+    }
+    if (reviews != null) {
+      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class Latlng {
-  double lat;
-  double lng;
+  double? lat;
+  double? lng;
 
-  Latlng({
-    required this.lat,
-    required this.lng,
-  });
+  Latlng({this.lat, this.lng});
+
+  Latlng.fromJson(Map<String, dynamic> json) {
+    lat = json['lat'];
+    lng = json['lng'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['lng'] = lng;
+    return data;
+  }
 }
-
-enum Neighborhood { BROOKLYN, MANHATTAN, QUEENS }
 
 class OperatingHours {
-  String monday;
-  String tuesday;
-  String wednesday;
-  String thursday;
-  String friday;
-  String saturday;
-  String sunday;
+  String? monday;
+  String? tuesday;
+  String? wednesday;
+  String? thursday;
+  String? friday;
+  String? saturday;
+  String? sunday;
 
-  OperatingHours({
-    required this.monday,
-    required this.tuesday,
-    required this.wednesday,
-    required this.thursday,
-    required this.friday,
-    required this.saturday,
-    required this.sunday,
-  });
+  OperatingHours(
+      {this.monday,
+      this.tuesday,
+      this.wednesday,
+      this.thursday,
+      this.friday,
+      this.saturday,
+      this.sunday});
+
+  OperatingHours.fromJson(Map<String, dynamic> json) {
+    monday = json['Monday'];
+    tuesday = json['Tuesday'];
+    wednesday = json['Wednesday'];
+    thursday = json['Thursday'];
+    friday = json['Friday'];
+    saturday = json['Saturday'];
+    sunday = json['Sunday'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Monday'] = monday;
+    data['Tuesday'] = tuesday;
+    data['Wednesday'] = wednesday;
+    data['Thursday'] = thursday;
+    data['Friday'] = friday;
+    data['Saturday'] = saturday;
+    data['Sunday'] = sunday;
+    return data;
+  }
 }
 
-class Review {
-  String name;
-  Date date;
-  int rating;
-  String comments;
+class Reviews {
+  String? name;
+  String? date;
+  int? rating;
+  String? comments;
 
-  Review({
-    required this.name,
-    required this.date,
-    required this.rating,
-    required this.comments,
-  });
+  Reviews({this.name, this.date, this.rating, this.comments});
+
+  Reviews.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    date = json['date'];
+    rating = json['rating'];
+    comments = json['comments'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['date'] = date;
+    data['rating'] = rating;
+    data['comments'] = comments;
+    return data;
+  }
 }
-
-enum Date { OCTOBER_262016 }

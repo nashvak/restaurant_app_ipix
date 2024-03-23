@@ -14,14 +14,14 @@ class SplashScreenController extends ChangeNotifier {
     Timer(const Duration(seconds: 2), () async {
       if (isLoggedIn != null) {
         if (isLoggedIn) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => HomeScreen(),
             ),
           );
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const LoginScreen(),
@@ -29,7 +29,7 @@ class SplashScreenController extends ChangeNotifier {
           );
         }
       } else {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const LoginScreen(),

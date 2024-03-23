@@ -18,3 +18,5 @@ class Appcolors {
 //     );
 //   }
 // }
+const String apiUrl =
+    'https://run.mocky.io/v3/9c7d5c0d-5dd9-4b72-b158-fcf4f61a956b';
