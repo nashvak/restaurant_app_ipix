@@ -5,7 +5,7 @@ import '../../../constants/global_variables.dart';
 class CustomTextfield extends StatelessWidget {
   final String text;
   final TextEditingController controller;
-  final VoidCallback validator;
+  final String? Function(String?) validator;
   final TextInputType keyboardType;
   final bool obscure;
   final IconButton? sufiixIcon;

@@ -7,6 +7,7 @@ import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../home_screen/home_screen.dart';
+import '../widgets/validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextfield(
                     text: 'Email',
                     controller: emailController,
-                    validator: () {},
+                    validator: emailValidator,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 20),
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         obscure: loginController.isVisible,
                         controller: passwordController,
-                        validator: () {},
+                        validator: passwordValidator,
                         keyboardType: TextInputType.visiblePassword,
                       );
                     },
