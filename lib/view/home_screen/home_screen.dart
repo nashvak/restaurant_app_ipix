@@ -7,6 +7,10 @@ import 'package:restaurant_app_ipix/view/login_page/page/login_screen.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'widgets/address_row.dart';
+import 'widgets/cuisine_type.dart';
+import 'widgets/name_rating_row.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
@@ -24,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  final num sum = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,18 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               children: [
                 IconButton(
-                    onPressed: () async {
-                      var pref = await SharedPreferences.getInstance();
-                      await pref.remove(splashScreenController.email);
-                      pref.setBool(splashScreenController.keyToLogin, false);
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                          (route) => false);
-                    },
-                    icon: const Icon(Icons.logout)),
+                  onPressed: () async {
+                    var pref = await SharedPreferences.getInstance();
+                    await pref.remove(splashScreenController.email);
+                    pref.setBool(splashScreenController.keyToLogin, false);
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                        (route) => false);
+                  },
+                  icon: const Icon(Icons.logout),
+                ),
                 const Text("Log out"),
               ],
             )
@@ -66,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       final restaurant = data[index];
+
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -108,97 +116,5 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
               }
             }));
-  }
-}
-
-class AddressRow extends StatelessWidget {
-  final String address;
-  const AddressRow({
-    super.key,
-    required this.address,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(
-          Icons.location_on,
-          size: 25,
-          color: Colors.grey,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(address),
-      ],
-    );
-  }
-}
-
-class CuisineType extends StatelessWidget {
-  final String cuisineType;
-  const CuisineType({
-    super.key,
-    required this.cuisineType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const CircleAvatar(
-            backgroundColor: Colors.grey,
-            radius: 10,
-            child: Icon(
-              Icons.local_restaurant_outlined,
-              size: 15,
-              color: Colors.white,
-            )),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(cuisineType),
-      ],
-    );
-  }
-}
-
-class NameRatingRow extends StatelessWidget {
-  final String name;
-  final double rating;
-  const NameRatingRow({
-    super.key,
-    required this.name,
-    required this.rating,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Appcolors.ratingColor,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-          child: Row(
-            children: [
-              Text(rating.toString()),
-              const Icon(
-                Icons.star,
-                color: Colors.yellow,
-              )
-            ],
-          ),
-        )
-      ],
-    );
   }
 }

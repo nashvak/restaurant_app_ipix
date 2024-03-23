@@ -6,13 +6,17 @@ import 'package:http/http.dart' as http;
 
 class HomeService {
   Future<List<Restaurants>> fetchRestaurants() async {
-    final response = await http.get(Uri.parse(apiUrl));
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body)['restaurants'];
-      return data.map((json) => Restaurants.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load restaurants');
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body)['restaurants'];
+        return data.map((json) => Restaurants.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load restaurants');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
     }
   }
 }

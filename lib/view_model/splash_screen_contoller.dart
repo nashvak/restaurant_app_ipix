@@ -9,7 +9,7 @@ class SplashScreenController extends ChangeNotifier {
   String keyToLogin = '';
   void checkLogin(context) async {
     var pref = await SharedPreferences.getInstance();
-    var isLoggedIn = pref.getBool(email);
+    var isLoggedIn = pref.getBool(keyToLogin);
     // print(isLoggedIn);
     Timer(const Duration(seconds: 2), () async {
       if (isLoggedIn != null) {

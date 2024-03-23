@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant_app_ipix/model/restaurant_model.dart';
-import 'package:restaurant_app_ipix/view/home_screen/home_screen.dart';
-import 'package:restaurant_app_ipix/view_model/details_screen.dart';
 
 import '../../api_calls/api_service.dart';
-import '../../constants/global_variables.dart';
+import '../home_screen/widgets/address_row.dart';
+import '../home_screen/widgets/cuisine_type.dart';
+import '../home_screen/widgets/name_rating_row.dart';
+import 'widgets/rating_review.dart';
 
 class RestaurantDetails extends StatefulWidget {
   final Restaurants restaurant;
@@ -23,8 +23,8 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
     super.initState();
   }
 
-  String? selectedOperatingHours;
-  String selectedDay = "Monday";
+  // String? selectedOperatingHours;
+  // String selectedDay = "Monday";
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                 left: 10,
                 child: Text(
                   widget.restaurant.name.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -52,27 +52,27 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
             ],
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   NameRatingRow(
                       name: widget.restaurant.name.toString(), rating: 4),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(widget.restaurant.neighborhood.toString()),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   CuisineType(
                       cuisineType: widget.restaurant.cuisineType.toString()),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   AddressRow(address: widget.restaurant.address.toString()),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   // DropdownButton<String>(
@@ -91,7 +91,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                   //         selectedOperatingHours = value;
                   //       });
                   //     }),
-                  Text(
+                  const Text(
                     "Ratings & Reviews",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
@@ -103,105 +103,5 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
         ],
       )),
     );
-  }
-}
-
-class RatingsReviews extends StatelessWidget {
-  final Restaurants restaurant;
-  RatingsReviews({super.key, required this.restaurant});
-  DetailsScreenController detailsScreenController = DetailsScreenController();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: restaurant.reviews!.length,
-      itemBuilder: (context, index) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Appcolors.ratingColor,
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                  child: Row(
-                    children: [
-                      Text(restaurant.reviews![index].rating.toString()),
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      )
-                    ],
-                  ),
-                ),
-                Text(restaurant.reviews![index].name.toString())
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ReadMoreText(text: restaurant.reviews![index].comments.toString()),
-          ],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          height: 2,
-        );
-      },
-    );
-  }
-}
-
-class ReadMoreText extends StatefulWidget {
-  final String text;
-  final int maxLines;
-  final String readMoreText;
-
-  const ReadMoreText({
-    super.key,
-    required this.text,
-    this.maxLines = 3,
-    this.readMoreText = "Read More",
-  });
-
-  @override
-  _ReadMoreTextState createState() => _ReadMoreTextState();
-}
-
-class _ReadMoreTextState extends State<ReadMoreText> {
-  bool _isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          _isExpanded ? widget.text : _trimText(widget.text, widget.maxLines),
-          maxLines: _isExpanded ? null : widget.maxLines,
-        ),
-        Container(
-          alignment: Alignment.topRight,
-          child: _isExpanded
-              ? Container()
-              : TextButton(
-                  onPressed: () => setState(() => _isExpanded = true),
-                  child: Text(widget.readMoreText),
-                ),
-        ),
-      ],
-    );
-  }
-
-  String _trimText(String text, int maxLines) {
-    final lines = text.split('\n');
-    if (lines.length <= maxLines) return text;
-    return "${lines.sublist(0, maxLines).join('\n')}...";
   }
 }
