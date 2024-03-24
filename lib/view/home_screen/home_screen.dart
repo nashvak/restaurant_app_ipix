@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   onPressed: () async {
                     var pref = await SharedPreferences.getInstance();
-                    await pref.remove(splashScreenController.email);
+                    await pref.remove('email');
                     pref.setBool(splashScreenController.keyToLogin, false);
                     // ignore: use_build_context_synchronously
                     Navigator.pushAndRemoveUntil(
@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(
                             builder: (context) => const LoginScreen()),
                         (route) => false);
+                    print(pref.getString('email'));
                   },
                   icon: const Icon(Icons.logout),
                 ),

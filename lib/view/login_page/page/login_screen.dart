@@ -93,8 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         var pref = await SharedPreferences.getInstance();
+
                         pref.setBool(splash.keyToLogin, true);
-                        pref.setString(splash.email, emailController.text);
+                        pref.setString('email', emailController.text);
+                        print(pref.getString('email'));
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(
                           context,

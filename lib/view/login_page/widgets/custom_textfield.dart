@@ -25,6 +25,7 @@ class CustomTextfield extends StatelessWidget {
       child: TextFormField(
         obscureText: obscure,
         keyboardType: keyboardType,
+        validator: validator,
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: sufiixIcon,
