@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_ipix/constants/snackbar.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/custom_textfield.dart';
 import 'package:restaurant_app_ipix/view/login_page/widgets/login_button.dart';
 import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
@@ -20,9 +23,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final SplashScreenController splash = SplashScreenController();
+
   final formKey = GlobalKey<FormState>();
+
+  userlogin() async {
+    if (formKey.currentState!.validate()) {
+      var pref = await SharedPreferences.getInstance();
+      pref.setBool(splash.keyToLogin, true);
+      pref.setString('email', emailController.text);
+      // print(pref.getString('email'));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+      showSnackbar(context, 'Login succesfully..!');
+    } else {
+      showSnackbar(context, 'Please fill all fields');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("build");
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -72,7 +97,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Row(
                         children: [
-                          Checkbox(value: false, onChanged: (value) {}),
+                          Consumer<LoginScreenController>(
+                            builder: (context, login, child) {
+                              return Checkbox(
+                                  value: login.checkboxToggle,
+                                  onChanged: (value) {
+                                    login.toggleCheckbox();
+                                  });
+                            },
+                          ),
                           const Text("Remember me"),
                         ],
                       ),
@@ -90,21 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 50),
                   LoginButton(
                     title: 'Log in',
-                    onTap: () async {
-                      if (formKey.currentState!.validate()) {
-                        var pref = await SharedPreferences.getInstance();
-
-                        pref.setBool(splash.keyToLogin, true);
-                        pref.setString('email', emailController.text);
-                        print(pref.getString('email'));
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
-                      }
+                    onTap: () {
+                      userlogin();
                     },
                   ),
                 ],
