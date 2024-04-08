@@ -12,7 +12,7 @@ import 'widgets/cuisine_type.dart';
 import 'widgets/name_rating_row.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeService homeService = HomeService();
   @override
   void initState() {
-    homeService.fetchRestaurants();
+    homeService.fetchRestaurants(context);
     super.initState();
   }
 
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: FutureBuilder(
-            future: homeService.fetchRestaurants(),
+            future: homeService.fetchRestaurants(context),
             builder: (context, AsyncSnapshot<List<Restaurants>> snapshot) {
               final data = snapshot.data;
               // print("fdjsf");

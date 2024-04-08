@@ -8,8 +8,6 @@ import 'package:restaurant_app_ipix/view/login_page/widgets/custom_textfield.dar
 import 'package:restaurant_app_ipix/view/login_page/widgets/login_button.dart';
 import 'package:restaurant_app_ipix/view_model/login_page_controller.dart';
 import 'package:restaurant_app_ipix/view_model/splash_screen_contoller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../home_screen/home_screen.dart';
 import '../widgets/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,22 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final SplashScreenController splash = SplashScreenController();
+  final LoginScreenController loginScreenController = LoginScreenController();
 
   final formKey = GlobalKey<FormState>();
 
   userlogin() async {
     if (formKey.currentState!.validate()) {
-      var pref = await SharedPreferences.getInstance();
-      pref.setBool(splash.keyToLogin, true);
-      pref.setString('email', emailController.text);
-      // print(pref.getString('email'));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ),
-      );
-      showSnackbar(context, 'Login succesfully..!');
+      loginScreenController.loginuser(emailController.text, context);
     } else {
       showSnackbar(context, 'Please fill all fields');
     }

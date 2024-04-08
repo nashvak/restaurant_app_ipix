@@ -14,13 +14,16 @@ class RatingsReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       shrinkWrap: true,
       itemCount: restaurant.reviews!.length,
       itemBuilder: (context, index) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
                 Container(
@@ -34,7 +37,7 @@ class RatingsReviews extends StatelessWidget {
                     children: [
                       Text(
                         restaurant.reviews![index].rating.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -45,12 +48,12 @@ class RatingsReviews extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
                   restaurant.reviews![index].name.toString(),
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 )
               ],
             ),
@@ -59,7 +62,7 @@ class RatingsReviews extends StatelessWidget {
             ),
             ReadMoreText(text: restaurant.reviews![index].comments.toString()),
             Text(restaurant.reviews![index].date.toString()),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],

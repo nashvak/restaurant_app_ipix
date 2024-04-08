@@ -46,7 +46,7 @@ class Rating extends StatelessWidget {
         children: [
           Text(
             rating.toString(),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           const Icon(
             Icons.star,

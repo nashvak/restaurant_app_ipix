@@ -19,7 +19,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
   HomeService homeService = HomeService();
   @override
   void initState() {
-    homeService.fetchRestaurants();
+    homeService.fetchRestaurants(context);
     super.initState();
   }
 
@@ -46,6 +46,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),

@@ -13,6 +13,7 @@ class ReadMoreText extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ReadMoreTextState createState() => _ReadMoreTextState();
 }
 
@@ -36,7 +37,8 @@ class _ReadMoreTextState extends State<ReadMoreText> {
                   onPressed: () => setState(() => _isExpanded = true),
                   child: Text(
                     widget.readMoreText,
-                    style: TextStyle(decoration: TextDecoration.underline),
+                    style:
+                        const TextStyle(decoration: TextDecoration.underline),
                   ),
                 ),
         ),
